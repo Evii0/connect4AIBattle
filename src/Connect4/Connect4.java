@@ -7,44 +7,44 @@ public class Connect4 {
 	int currentPlayer = 1;
 
 	public Connect4() {
-		int hCount = 0;
-		int rCount = 0;
-		int draw = 0;
+//		int hCount = 0;
+//		int rCount = 0;
+//		int draw = 0;
+//		
+//		for(int i = 0; i < 100; i++) {
+//			String result = playConnect4();
+//			printBoard();
+//			if(result.equals("HeuristicAI"))hCount++;
+//			else if(result.equals("-1"))draw++;
+//			else rCount++;
+//			grid = new int[7][6];
+//		}
+//		System.out.println("Heuristic: " + hCount);
+//		System.out.println("Random: " + rCount);
+//		System.out.println("Draw: " + draw);
+		grid[0][0] = 1;
+		grid[1][0] = 2;
+		grid[2][0] = 0;
+		grid[3][0] = 2;
+		grid[4][0] = 2;
+		grid[5][0] = 2;
+		grid[6][0] = 0;
 		
-		for(int i = 0; i < 100; i++) {
-			String result = playConnect4();
-			printBoard();
-			if(result.equals("HeuristicAI"))hCount++;
-			else if(result.equals("-1"))draw++;
-			else rCount++;
-			grid = new int[7][6];
-		}
-		System.out.println("Heuristic: " + hCount);
-		System.out.println("Random: " + rCount);
-		System.out.println("Draw: " + draw);
-//		grid[0][0] = 1;
-//		grid[1][0] = 1;
-//		grid[2][0] = 1;
-//		grid[3][0] = 1;
-//		grid[4][0] = 1;
-//		grid[5][0] = 2;
-//		grid[6][0] = 1;
-//		
-//		grid[0][1] = 1;
-//		grid[1][1] = 1;
-//		grid[2][1] = 1;
-//		grid[3][1] = 0;
-//		grid[4][1] = 0;
-//		grid[5][1] = 0;
-//		grid[6][1] = 2;
-//		
-//		grid[0][2] = 1;
-//		grid[1][2] = 0;
-//		grid[2][2] = 0;
-//		grid[3][2] = 0;
-//		grid[4][2] = 0;
-//		grid[5][2] = 0;
-//		grid[6][2] = 0;
+		grid[0][1] = 1;
+		grid[1][1] = 1;
+		grid[2][1] = 0;
+		grid[3][1] = 2;
+		grid[4][1] = 0;
+		grid[5][1] = 0;
+		grid[6][1] = 0;
+		
+		grid[0][2] = 1;
+		grid[1][2] = 0;
+		grid[2][2] = 0;
+		grid[3][2] = 0;
+		grid[4][2] = 0;
+		grid[5][2] = 0;
+		grid[6][2] = 0;
 		
 //		grid[0][3] = 1;
 //		grid[1][3] = 2;
@@ -64,8 +64,13 @@ public class Connect4 {
 //		printBoard();
 //		System.out.println(isGameOver());
 //		System.out.println(new HeuristicAI(2).canWinOrLose(grid));
+		
 //		playConnect4();
 //		printBoard();
+		
+		LookingAheadAI player1 = new LookingAheadAI(1);
+		makeMove(player1.chooseMove(grid), 1);
+		printBoard();
 	}
 	
 	private String playConnect4() {
@@ -76,18 +81,18 @@ public class Connect4 {
 		
 		int startingPlayer = new Random().nextInt(2) + 1;
 		if(startingPlayer == 1) {
-			player1 = new HeuristicAI(1);
+			player1 = new LookingAheadAI(1);
 			player2 = new HeuristicAI(2);
-			player1Name = "HeuristicAI";
-			player2Name = "PetersAI";
-			System.out.println("Player 1: HeuristicAI\nPlayer 2: PetersAI");
+			player1Name = "LookingAheadAI";
+			player2Name = "HeuristicAI";
+			System.out.println("Player 1: LookingAheadAI\nPlayer 2: HeuristicAI");
 		}
 		else {
 			player1 = new HeuristicAI(1);
-			player2 = new HeuristicAI(2);
+			player2 = new LookingAheadAI(2);
 			player2Name = "HeuristicAI";
-			player1Name = "PetersAI";
-			System.out.println("Player 1: PetersAI\nPlayer 2: HeuristicAI");
+			player1Name = "LookingAheadAI";
+			System.out.println("Player 1: HeuristicAI\nPlayer 2: LookingAheadAI");
 		}
 		
 		int player = 0;
@@ -120,7 +125,7 @@ public class Connect4 {
 				}
 			}
 			
-//			printBoard();
+			printBoard();
 			
 			if(!makeMove(player2.chooseMove(grid), 2)){
 				int count = 0;
@@ -149,7 +154,7 @@ public class Connect4 {
 				}
 			}
 			
-//			printBoard();
+			printBoard();
 		}
 		return "";
 	}
